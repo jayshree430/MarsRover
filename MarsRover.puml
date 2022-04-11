@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Rover }-- Plateau
+Rover -- Direction
+
+
+class Plateau {
+- X_MIN: int = 0
+- Y_MIN: int = 0
+- X_MAX: int
+- Y_MAX: int
+
++ move(x: int, y: int, d: Direction): String
+- collisionCheck(): String
+- edgeCheck(): String
+}
+
+class Rover {
+  - posX: int
+    - posY: int
+    - d: Direction
+
+    + goLeft()
+    + goRight()
+    + move(): String
+}
+
+
+enum Direction {
+NORTH,
+EAST,
+SOUTH,
+WEST
+}
+
+@enduml
