@@ -13,7 +13,7 @@ class Plateau {
 
 + move(x: int, y: int, d: Direction): String
 - collisionCheck(): String
-- edgeCheck(): String
+- edgeCheck(): boolean
 }
 
 class Rover {
