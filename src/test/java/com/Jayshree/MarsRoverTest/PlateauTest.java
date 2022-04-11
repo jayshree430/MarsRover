@@ -9,7 +9,7 @@ public class PlateauTest {
     Plateau plateau;
 
     @Test
-    public void assertZeroPlateauValueXY() {
+    public void checkZeroPlateauValueXY() {
         String exceptionMessage = "";
         String message = "Plateau size must be greater than zero";
         try {
@@ -20,14 +20,17 @@ public class PlateauTest {
         assertEquals(message, exceptionMessage);
     }
     @Test
-    public void assertMinusPlateauValueXY() {
+    public void checkNegativePlateauValueXY() {
         String exceptionMessage = "";
         String message = "Plateau size must be greater than zero";
         try {
-            Plateau plateau = new Plateau(-5, -2);
+             plateau = new Plateau(-5, -2);
         } catch (Exception exception) {
             exceptionMessage = exception.getMessage();
         }
         assertEquals(message, exceptionMessage);
     }
+
+
+
 }

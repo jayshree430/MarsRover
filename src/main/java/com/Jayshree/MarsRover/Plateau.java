@@ -13,4 +13,6 @@ public class Plateau {
         this.xmax = x;
         this.ymax = y;
     }
+
+
 }
