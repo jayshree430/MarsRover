@@ -96,5 +96,48 @@ public class PlateauTest {
         }
     }
 
+    @Test
+    public void checkMoveNorthIsPossible() {
+        //Checking weather the vehicle can move 1 space in given direction
+
+        try {
+            plateau = new Plateau(5, 6);
+            String expected = "Can move further.";
+            assertEquals(expected, plateau.move(1,3, Direction.NORTH));
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+    @Test
+    public void checkMoveEastIsPossible() {
+        try {
+            plateau = new Plateau(5, 6);
+            String expected = "Can move further.";
+            assertEquals(expected, plateau.move(4,3, Direction.EAST));
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+    @Test
+    public void checkMoveSouthIsPossible() {
+        try {
+            plateau = new Plateau(5, 6);
+            String expected = "Can move further.";
+            assertEquals(expected, plateau.move(1,1, Direction.SOUTH));
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+    @Test
+    public void checkMoveWestIsPossible() {
+        try {
+            plateau = new Plateau(5, 6);
+            String expected = "Can move further.";
+            assertEquals(expected, plateau.move(1,3, Direction.WEST));
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
 
 }
