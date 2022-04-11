@@ -22,17 +22,19 @@ public class Plateau {
     }
 
     public String move(int x, int y, Direction d){
-        String result = "";
+        boolean result = edgeCheck(x,y,d);
         // Check the direction then check if the vehicle would go over the edge
-        if (d == Direction.NORTH && y >= this.ymax) {
-            return "Cannot move further. Vehicle over edge";
-        }else if (d == Direction.EAST && x >= this.xmax) {
-            return "Cannot move further. Vehicle over edge";
-        } else if (d == Direction.SOUTH && y <= this.Y_MIN) {
-            return "Cannot move further. Vehicle over edge";
-        } else if (d == Direction.WEST && x <= this.X_MIN) {
+        if (!result){
             return "Cannot move further. Vehicle over edge";
         }
         return "Can move further.";
+    }
+
+    public boolean edgeCheck(int x, int y, Direction d){
+
+        return (d != Direction.NORTH || y < this.ymax) &&
+                (d != Direction.EAST || x < this.xmax) &&
+                (d != Direction.SOUTH || y > this.Y_MIN) &&
+                (d != Direction.WEST || x > this.X_MIN);
     }
 }

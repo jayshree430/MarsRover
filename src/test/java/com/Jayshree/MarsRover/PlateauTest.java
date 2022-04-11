@@ -79,7 +79,7 @@ public class PlateauTest {
     }
 
     @Test
-    public void checkMoveSouth() {
+    public void checkMoveSouthEdge() {
         String exceptionMessage = "";
         try {
             plateau = new Plateau(5, 6);
@@ -91,7 +91,7 @@ public class PlateauTest {
     }
 
     @Test
-    public void checkMoveWest() {
+    public void checkMoveWestEdge() {
         String exceptionMessage = "";
         try {
             plateau = new Plateau(5, 6);
