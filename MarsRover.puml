@@ -8,8 +8,8 @@ Rover -- Direction
 class Plateau {
 - X_MIN: int = 0
 - Y_MIN: int = 0
-- X_MAX: int
-- Y_MAX: int
+- xmax: int
+- ymax: int
 
 + move(x: int, y: int, d: Direction): String
 - collisionCheck(): String
