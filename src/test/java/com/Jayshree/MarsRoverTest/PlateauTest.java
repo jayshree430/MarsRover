@@ -30,7 +30,27 @@ public class PlateauTest {
         }
         assertEquals(message, exceptionMessage);
     }
+    @Test
+    public void checkPlateauValueX() {
+        String exceptionMessage = "";
+        try {
+             plateau = new Plateau(50, 20);
+        } catch (Exception exception) {
+            exceptionMessage = exception.getMessage();
+        }
+        assertEquals(50, plateau.getXmax());
+    }
 
+    @Test
+    public void checkPlateauValueY() {
+        String exceptionMessage = "";
+        try {
+            plateau = new Plateau(50, 20);
+        } catch (Exception exception) {
+            exceptionMessage = exception.getMessage();
+        }
+        assertEquals(20, plateau.getYmax());
+    }
 
 
 }

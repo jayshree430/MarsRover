@@ -14,5 +14,10 @@ public class Plateau {
         this.ymax = y;
     }
 
-
+    public int getXmax() {
+        return xmax;
+    }
+    public int getYmax(){
+        return ymax;
+    }
 }
