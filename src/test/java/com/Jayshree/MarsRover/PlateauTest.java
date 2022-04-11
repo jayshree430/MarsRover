@@ -30,75 +30,69 @@ public class PlateauTest {
     }
     @Test
     public void checkPlateauValueX() {
-        String exceptionMessage = "";
         try {
              plateau = new Plateau(50, 20);
             assertEquals(50, plateau.getXmax());
         } catch (Exception exception) {
-            exceptionMessage = exception.getMessage();
+            System.out.println(exception.getMessage());
         }
 
     }
 
     @Test
     public void checkPlateauValueY() {
-        String exceptionMessage = "";
         try {
             plateau = new Plateau(50, 20);
             assertEquals(20, plateau.getYmax());
         } catch (Exception exception) {
-            exceptionMessage = exception.getMessage();
+            System.out.println(exception.getMessage());
         }
 
     }
 
     @Test
-    public void checkMoveNorthEdge() {
+    public void checkMoveNorthEdgeIsNotPossible() {
         //Checking weather the vehicle can move 1 space in given direction
-        String exceptionMessage = "";
         try {
             plateau = new Plateau(5, 6);
             String expected = "Cannot move further. Vehicle over edge";
             assertEquals(expected, plateau.move(4,6, Direction.NORTH));
         } catch (Exception exception) {
-            exceptionMessage = exception.getMessage();
+            System.out.println(exception.getMessage());
         }
 
     }
 
     @Test
-    public void checkMoveEastEdge() {
-        String exceptionMessage = "";
+    public void checkMoveEastEdgeIsNotPossible() {
         try {
             plateau = new Plateau(5, 6);
             String expected = "Cannot move further. Vehicle over edge";
             assertEquals(expected, plateau.move(5,3, Direction.EAST));
         } catch (Exception exception) {
-            exceptionMessage = exception.getMessage();
+            System.out.println(exception.getMessage());
         }
     }
 
     @Test
-    public void checkMoveSouthEdge() {
-        String exceptionMessage = "";
+    public void checkMoveSouthEdgeIsNotPossible() {
         try {
             plateau = new Plateau(5, 6);
             String expected = "Cannot move further. Vehicle over edge";
             assertEquals(expected, plateau.move(5,0, Direction.SOUTH));
         } catch (Exception exception) {
-            exceptionMessage = exception.getMessage();
+            System.out.println(exception.getMessage());
         }
     }
 
     @Test
-    public void checkMoveWestEdge() {
-        String exceptionMessage = "";
+    public void checkMoveWestEdgeIsNotPossible() {
         try {
             plateau = new Plateau(5, 6);
             String expected = "Cannot move further. Vehicle over edge";
             assertEquals(expected, plateau.move(0,3, Direction.WEST));
         } catch (Exception exception) {
-            exceptionMessage = exception.getMessage();
+            System.out.println(exception.getMessage());
         }
     }
 
