@@ -4,8 +4,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import javax.swing.plaf.synth.SynthRadioButtonMenuItemUI;
 
 public class RoverTest {
 
@@ -65,6 +68,19 @@ public class RoverTest {
         assertEquals(expected,rover.processMovement(instruction));
     }
 
+    @Test
+    public void checkDirectionForRoverIsSouth(){
+        rover = new Rover(3, 5, Direction.EAST);
+        String result = rover.processMovement("R");
+        assertEquals(Direction.SOUTH,rover.getDirection());
+    }
+
+    @Test
+    public void checkDirectionForRoverIsNorth(){
+        rover = new Rover(3, 5, Direction.EAST);
+        String result = rover.processMovement("L");
+        assertEquals(Direction.NORTH,rover.getDirection());
+    }
 
 
 }
