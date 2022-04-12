@@ -20,6 +20,7 @@ class Rover {
     - posX: int
     - posY: int
     - d: Direction
+    - plateau : Plateau
 
     + goLeft():void
     + goRight():void
