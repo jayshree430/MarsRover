@@ -24,6 +24,8 @@ class Rover {
     + goLeft()
     + goRight()
     + move(): String
+    + processMovement(movement: String) : String
+    - checkInputString(movement: String) : String
 }
 
 
