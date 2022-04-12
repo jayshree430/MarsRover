@@ -2,13 +2,14 @@ package com.Jayshree.MarsRover;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.swing.plaf.synth.SynthRadioButtonMenuItemUI;
+import java.util.stream.Stream;
 
 public class RoverTest {
 
@@ -82,5 +83,32 @@ public class RoverTest {
         assertEquals(Direction.NORTH,rover.getDirection());
     }
 
+    @Test
+    public void checkMove() {
+        rover = new Rover(3, 5, Direction.EAST);
+        String result = rover.processMovement("M");
+        assertEquals(4, rover.getPosX());
+    }
+
+    @Test
+    public void checkTurnLeftMove() {
+        rover = new Rover(3, 5, Direction.EAST);
+        String result = rover.processMovement("LM");
+        assertEquals(6, rover.getPosY());
+    }
+
+    @Test
+    public void checkTurnRightMove() {
+        rover = new Rover(3, 5, Direction.EAST);
+        String result = rover.processMovement("RM");
+        assertEquals(4, rover.getPosY());
+    }
+
+    @Test
+    public void checkTurnRightRightMove() {
+        rover = new Rover(3, 5, Direction.EAST);
+        String result = rover.processMovement("RRM");
+        assertEquals(2, rover.getPosX());
+    }
 
 }

@@ -38,6 +38,7 @@ public class Rover {
                 switch (input.toUpperCase()) {
                     case "L" -> goLeft();
                     case "R" -> goRight();
+                    case "M" -> move();
                     default -> System.out.println("Something else? " + input);
                 }
             } catch (Exception e) {
@@ -67,5 +68,14 @@ public class Rover {
             }
 
         }
+    private void move(){
+        switch (direction) {
+            // todo add edge checking
+            case NORTH -> posY += 1;
+            case EAST -> posX += 1;
+            case SOUTH -> posY -= 1;
+            case WEST -> posX -= 1;
+        }
+    }
 
 }
