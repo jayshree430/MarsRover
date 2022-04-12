@@ -17,7 +17,7 @@ class Plateau {
 }
 
 class Rover {
-  - posX: int
+    - posX: int
     - posY: int
     - d: Direction
 

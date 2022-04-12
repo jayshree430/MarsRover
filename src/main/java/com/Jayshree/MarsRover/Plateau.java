@@ -6,9 +6,9 @@ public class Plateau {
     public int xmax ;
     public int ymax ;
 
-    public Plateau(int x, int y) throws Exception {
+    public Plateau(int x, int y) throws IllegalArgumentException {
         if (x <= X_MIN || y <= Y_MIN){
-             throw new Exception("Plateau size must be greater than zero");
+             throw new IllegalArgumentException("Plateau size must be greater than zero");
         }
         this.xmax = x;
         this.ymax = y;
@@ -27,7 +27,7 @@ public class Plateau {
         if (!result){
             return "Cannot move further. Vehicle over edge";
         }
-        return "Can move further.";
+        return "Can move further."; //Can do collision check here.Create a new method for collision check
     }
 
     public boolean edgeCheck(int x, int y, Direction d){
