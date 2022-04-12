@@ -15,4 +15,11 @@ public class Rover {
         this.d = d;
     }
 
+    public int getPosX(){
+        return posX;
+    }
+    public int getPosY(){
+        return posY;
+    }
+
 }

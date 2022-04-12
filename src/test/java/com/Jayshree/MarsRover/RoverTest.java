@@ -30,6 +30,13 @@ public class RoverTest {
         }
         assertEquals(message, exceptionMessage);
     }
+    @Test
+    public void checkPosition(){
+        rover = new Rover(3,3,Direction.EAST);
+        assertEquals(3, rover.getPosX());
+        assertEquals(3, rover.getPosY());
+    }
+
 
 
 }
