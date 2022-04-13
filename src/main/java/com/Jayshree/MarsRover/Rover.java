@@ -86,7 +86,6 @@ public class Rover {
         }
         Direction d = this.direction;
         switch (d) {
-            // todo add edge checking
             case NORTH -> this.posY += 1;
             case EAST -> this.posX += 1;
             case SOUTH -> this.posY -= 1;
