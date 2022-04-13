@@ -11,6 +11,7 @@ public class Main {
         System.out.print("Please enter the size of Plateau. Enter two numbers separated by a space: ");
         int[] plateauSize = getCommandNumbers();
         Plateau plateau = new Plateau(plateauSize[0], plateauSize[1]);
+
     }
     public static int[] getCommandNumbers(){
         String size;
@@ -52,5 +53,16 @@ public class Main {
             case "s" -> Direction.SOUTH;
             default -> Direction.WEST;
         };
+    }
+    private static boolean addAnotherVehicle() {
+        String response;
+        boolean haveResponse = false;
+        do {
+            System.out.print("Would you like to add another vehicle? y/n: ");
+            response = getCommand();
+            if (response.matches("^[yn]")) haveResponse = true;
+            else System.out.println("Must be either y or n");
+        } while (!haveResponse);
+        return response.equals("y");
     }
 }
