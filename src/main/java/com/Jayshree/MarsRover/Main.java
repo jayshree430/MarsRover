@@ -36,4 +36,21 @@ public class Main {
         }
         return movement;
     }
+
+    private static Direction getDirection() {
+        System.out.print("Enter the direction the rover is facing - N/S/E/W: ");
+        String direction;
+        boolean haveResponse = false;
+        do {
+            direction = getCommand();
+            if (direction.matches("^[nsew|NSEW]")) haveResponse = true;
+            else System.out.println("Must be single character: N/S/E/W ");
+        } while (!haveResponse);
+        return switch (direction.toLowerCase()) {
+            case "n" -> Direction.NORTH;
+            case "e" -> Direction.EAST;
+            case "s" -> Direction.SOUTH;
+            default -> Direction.WEST;
+        };
+    }
 }
