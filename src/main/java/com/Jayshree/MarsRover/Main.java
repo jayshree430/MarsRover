@@ -11,7 +11,20 @@ public class Main {
         System.out.print("Please enter the size of Plateau. Enter two numbers separated by a space: ");
         int[] plateauSize = getCommandNumbers();
         Plateau plateau = new Plateau(plateauSize[0], plateauSize[1]);
+        do {
+            System.out.print("Enter the vehicle coordinates (x y) separated by a space: ");
+            int[] coords = getCommandNumbers();
 
+            Rover rover = new Rover(coords[0], coords[1], getDirection(), plateau);
+
+            System.out.print("Enter the vehicle instructions - L/R/M : ");
+
+            if (rover.processMovement(getCommand()).equals("Invalid Instructions. Please provide only L, R or M as input")) {
+                System.out.println("Movement string can only contain the letters LRM.");
+            }
+            System.out.println(rover.getPosX() + " " + rover.getPosY() + " " + rover.getDirection());
+        } while (addAnotherVehicle());
+        System.out.println("Thank you for visiting Mars");
     }
     public static int[] getCommandNumbers(){
         String size;
