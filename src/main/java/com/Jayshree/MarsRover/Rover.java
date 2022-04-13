@@ -16,6 +16,15 @@ public class Rover {
         this.direction = direction;
     }
 
+    public Rover(int posX, int posY, Direction direction, Plateau plateau) throws IllegalArgumentException{
+        if(posX <= 0 || posY <= 0){
+            throw new IllegalArgumentException("Position should be greater than Zero");
+        }
+        this.posX = posX;
+        this.posY = posY;
+        this.direction = direction;
+        this.plateau = plateau;
+    }
     public int getPosX(){
         return posX;
     }
@@ -49,32 +58,39 @@ public class Rover {
     }
 
     private void goLeft(){
-        switch (direction) {
-            case EAST -> direction = Direction.NORTH;
-            case SOUTH -> direction = Direction.EAST;
-            case WEST -> direction = Direction.SOUTH;
-            case NORTH -> direction = Direction.WEST;
-            default -> System.out.println("Direction = " + direction);
+        Direction d = this.direction;
+        switch (d) {
+            case EAST -> this.direction = Direction.NORTH;
+            case SOUTH -> this.direction = Direction.EAST;
+            case WEST -> this.direction = Direction.SOUTH;
+            case NORTH -> this.direction = Direction.WEST;
+            default -> System.out.println("Direction = " + d);
         }
     }
 
         private void goRight() {
-            switch (direction) {
-                case EAST -> direction = Direction.SOUTH;
-                case SOUTH -> direction = Direction.WEST;
-                case WEST -> direction = Direction.NORTH;
-                case NORTH -> direction = Direction.EAST;
-                default -> System.out.println("Direction = " + direction);
+        Direction d = this.direction;
+            switch (d) {
+                case EAST -> this.direction = Direction.SOUTH;
+                case SOUTH -> this.direction = Direction.WEST;
+                case WEST -> this.direction = Direction.NORTH;
+                case NORTH -> this.direction = Direction.EAST;
+                default -> System.out.println("Direction = " + d);
             }
 
         }
-    private void move(){
-        switch (direction) {
+    private void move() throws Exception{
+        String result = plateau.move(posX, posY, direction);
+        if (result.equals("Cannot move further. Vehicle over edge")){
+            throw new Exception("Rover has reached the Edge");
+        }
+        Direction d = this.direction;
+        switch (d) {
             // todo add edge checking
-            case NORTH -> posY += 1;
-            case EAST -> posX += 1;
-            case SOUTH -> posY -= 1;
-            case WEST -> posX -= 1;
+            case NORTH -> this.posY += 1;
+            case EAST -> this.posX += 1;
+            case SOUTH -> this.posY -= 1;
+            case WEST -> this.posX -= 1;
         }
     }
 
