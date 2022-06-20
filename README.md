@@ -7,7 +7,7 @@ A Kata in martial arts means “a system of individual training exercises”. Ju
 ###What is the goal?
 You have been asked to create a program to move rovers around the surface of Mars! The surface of Mars is represented by a Plateau, you can make the assumption that the Plateau is a square/rectangular grid for the purpose of this task. Rovers navigate the Plateau so they can use their special cameras and robot arms to collect samples back to Planet Earth.
 
-###Assumptions:
+### Assumptions:
 
  - The surface is square/rectangular
  - Bullet listThe coordinates begin at 0,0
@@ -53,16 +53,16 @@ Here i have mapped out the structure of the Mars Rover navigation system by mode
     * This the implementation of console application. 
 
 
-###How to run the application
+### How to run the application
 * cd to the project root folder in the command line
 * mvn compile
 * mvn exec:java -Dexec.mainClass=com.Jayshree.MarsRover.Main
 
-###To run tests use:
+### To run tests use:
 
 * mvn test
 
-###Technology
+### Technology
 This project was built using:
 
 * Java 17.0.2
