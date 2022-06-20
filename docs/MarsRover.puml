@@ -1,0 +1,55 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+PlateauRoverFunctions <|.. Plateau
+ Plateau ---o Rover
+Rover - Direction : use
+Plateau - Direction : use
+Status . Rover : use
+Status . Plateau :use
+
+interface PlateauRoverFunctions{
+  + addRover(Rover rover) : void
+  + checkEdgeCoordinates(x : int, y : int, d : Direction) : Status
+  + getRoverByCoordinates( x : int, y : int) : Rover
+  + forwardPosition(x : int , y : int, direction : Direction) : boolean
+}
+
+
+class Plateau {
+    - MIN_EDGE : int
+    - maxEdgeX : int
+    - maxEdgeY : int
+    - roverList : List<Rover>
+
+- edgeCheck(x : int, y : int, d : Direction): boolean
+}
+
+class Rover {
+    - posX: int
+    - posY: int
+    - d: Direction
+    - plateau : PlateauRoverFunctions
+
+    + goLeft():void
+    + goRight():void
+    + move(): String
+    + moveForward(): String
+    + processMovement(movement: String) : String
+}
+
+
+enum Direction {
+NORTH,
+EAST,
+SOUTH,
+WEST
+}
+
+enum Status {
+    NO_ERROR,
+    ERROR_OVER_EDGE,
+    ERROR_TAKEN_SPOT,
+    ERROR_BAD_MOVEMENT_STRING,
+}
+@enduml
