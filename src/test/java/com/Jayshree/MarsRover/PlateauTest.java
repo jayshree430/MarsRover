@@ -31,67 +31,60 @@ public class PlateauTest {
     @Test
     public void checkPlateauValueX() {
         plateau = new Plateau(50, 20);
-        assertEquals(50, plateau.getXmax());
+        assertEquals(50, plateau.getMaxEdgeX());
     }
 
     @Test
     public void checkPlateauValueY() {
         plateau = new Plateau(50, 20);
-        assertEquals(20, plateau.getYmax());
+        assertEquals(20, plateau.getMaxEdgeY());
     }
 
     @Test
     public void checkMoveNorthEdgeIsNotPossible() {
         //Checking weather the vehicle can move 1 space in given direction
         plateau = new Plateau(5, 6);
-        String expected = "Cannot move further. Vehicle over edge";
-        assertEquals(expected, plateau.move(4,6, Direction.NORTH));
+        assertEquals(Status.NO_ERROR, plateau.checkEdgeCoordinates(4,6, Direction.NORTH));
     }
 
     @Test
     public void checkMoveEastEdgeIsNotPossible() {
         plateau = new Plateau(5, 6);
-        String expected = "Cannot move further. Vehicle over edge";
-        assertEquals(expected, plateau.move(5,3, Direction.EAST));
+
+        assertEquals(Status.NO_ERROR, plateau.checkEdgeCoordinates(5,3, Direction.EAST));
     }
 
     @Test
     public void checkMoveSouthEdgeIsNotPossible() {
         plateau = new Plateau(5, 6);
-        String expected = "Cannot move further. Vehicle over edge";
-        assertEquals(expected, plateau.move(5,0, Direction.SOUTH));
+        assertEquals(Status.NO_ERROR, plateau.checkEdgeCoordinates(5,0, Direction.SOUTH));
     }
 
     @Test
     public void checkMoveWestEdgeIsNotPossible() {
       plateau = new Plateau(5, 6);
-      String expected = "Cannot move further. Vehicle over edge";
-      assertEquals(expected, plateau.move(0,3, Direction.WEST));
+      assertEquals(Status.NO_ERROR, plateau.checkEdgeCoordinates(0,3, Direction.WEST));
     }
 
     @Test
     public void checkMoveNorthIsPossible() {
         //Checking weather the vehicle can move 1 space in given direction
         plateau = new Plateau(5, 6);
-        String expected = "Can move further.";
-        assertEquals(expected, plateau.move(1,3, Direction.NORTH));
+        assertEquals(Status.NO_ERROR, plateau.checkEdgeCoordinates(1,3, Direction.NORTH));
     }
     @Test
     public void checkMoveEastIsPossible() {
         plateau = new Plateau(5, 6);
-        String expected = "Can move further.";
-        assertEquals(expected, plateau.move(4,3, Direction.EAST));
+        assertEquals(Status.NO_ERROR, plateau.checkEdgeCoordinates(4,3, Direction.EAST));
     }
     @Test
     public void checkMoveSouthIsPossible() {
        plateau = new Plateau(5, 6);
-       String expected = "Can move further.";
-       assertEquals(expected, plateau.move(1,1, Direction.SOUTH));
+       assertEquals(Status.NO_ERROR, plateau.checkEdgeCoordinates(1,1, Direction.SOUTH));
     }
     @Test
     public void checkMoveWestIsPossible() {
       plateau = new Plateau(5, 6);
-      String expected = "Can move further.";
-      assertEquals(expected, plateau.move(1,3, Direction.WEST));
+      assertEquals(Status.NO_ERROR, plateau.checkEdgeCoordinates(1,3, Direction.WEST));
     }
 }

@@ -1,40 +1,73 @@
 package com.Jayshree.MarsRover;
 
-public class Plateau {
-    public final int X_MIN = 0;
-    public final int Y_MIN = 0;
-    public int xmax ;
-    public int ymax ;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Plateau(int x, int y) throws IllegalArgumentException {
-        if (x <= X_MIN || y <= Y_MIN){
-             throw new IllegalArgumentException("Plateau size must be greater than zero");
+public class Plateau implements PlateauRoverFunctions{
+    public final int MIN_EDGE = 0;
+    public int maxEdgeX;
+    public int maxEdgeY;
+    public List<Rover> roverList = new ArrayList<>();
+
+    public Plateau(int edgeCoordinateX, int edgeCoordinateY) throws IllegalArgumentException {
+        if (edgeCoordinateX <= MIN_EDGE || edgeCoordinateY <= MIN_EDGE) {
+            throw new IllegalArgumentException("Plateau size must be greater than zero");
         }
-        this.xmax = x;
-        this.ymax = y;
+        this.maxEdgeX = edgeCoordinateX;
+        this.maxEdgeY = edgeCoordinateY;
     }
 
-    public int getXmax() {
-        return xmax;
-    }
-    public int getYmax(){
-        return ymax;
+    public int getMaxEdgeX() {
+        return maxEdgeX;
     }
 
-    public String move(int x, int y, Direction d){
-        boolean result = edgeCheck(x,y,d);
+    public int getMaxEdgeY() {
+        return maxEdgeY;
+    }
+
+    public Status edgeCheck(int x, int y, Direction d) {
+        Status status = Status.NO_ERROR;
+
+        if (x > maxEdgeX + 1 || y > maxEdgeY + 1 || x<0 || y< 0){
+            status = Status.ERROR_OVER_EDGE;
+        }
+        return status;
+    }
+
+    @Override
+    public Status checkEdgeCoordinates(int x, int y, Direction d) {
+
         // Check the direction then check if the vehicle would go over the edge
-        if (!result){
-            return "Cannot move further. Vehicle over edge";
+        return edgeCheck(x, y, d);
+    }
+
+    @Override
+    public void addRover(Rover rover) {
+        //Add rover to the roverList
+        roverList.add(rover);
+    }
+
+    @Override
+    public Rover getRoverByCoordinates(int x, int y) {
+        //Comparing x & y with coordinates from list of rovers and returning the rover object if found
+
+        return roverList.stream()
+                .filter(r -> r.getPosX() == x && r.getPosY() == y)
+                .findAny()
+                .orElse(null);
+    }
+
+    @Override
+    public boolean forwardPosition(int x, int y, Direction direction){
+        //Checking if the forward position in a particular direction is valid or not.
+
+        switch (direction) {
+            case NORTH -> y += 1;
+            case EAST -> x += 1;
+            case SOUTH -> y -= 1;
+            case WEST -> x -= 1;
         }
-        return "Can move further."; //Can do collision check here.Create a new method for collision check
+        return getRoverByCoordinates(x, y) != null;
     }
 
-    public boolean edgeCheck(int x, int y, Direction d){
-
-        return (d != Direction.NORTH || y < this.ymax) &&
-                (d != Direction.EAST || x < this.xmax) &&
-                (d != Direction.SOUTH || y > this.Y_MIN) &&
-                (d != Direction.WEST || x > this.X_MIN);
-    }
 }

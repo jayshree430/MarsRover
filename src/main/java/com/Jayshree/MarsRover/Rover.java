@@ -2,44 +2,44 @@ package com.Jayshree.MarsRover;
 
 public class Rover {
 
+    private final String INVALID_POSITION = "Position should be greater than Zero";
+    private final String TAKEN_SPOT = "Another rover is already present at that coordinate";
+    private final String EDGE_MESSAGE = "Rover has reached the edge";
+
     private int posX;
     private int posY;
     Direction direction;
-    private Plateau plateau;
+    private PlateauRoverFunctions plateau;
 
-    public Rover(int posX, int posY, Direction direction) throws IllegalArgumentException{
+    public Rover(int posX, int posY, Direction direction, PlateauRoverFunctions plateau) throws IllegalArgumentException{
         if(posX <= 0 || posY <= 0){
-            throw new IllegalArgumentException("Position should be greater than Zero");
+            throw new IllegalArgumentException(INVALID_POSITION);
         }
-        this.posX = posX;
-        this.posY = posY;
-        this.direction = direction;
-    }
-
-    public Rover(int posX, int posY, Direction direction, Plateau plateau) throws IllegalArgumentException{
-        if(posX <= 0 || posY <= 0){
-            throw new IllegalArgumentException("Position should be greater than Zero");
+        if (plateau.getRoverByCoordinates(posX, posY) != null){
+            throw new IllegalArgumentException(TAKEN_SPOT);
         }
         this.posX = posX;
         this.posY = posY;
         this.direction = direction;
         this.plateau = plateau;
+        plateau.addRover(this);
     }
     public int getPosX(){
         return posX;
     }
+
     public int getPosY(){
         return posY;
     }
+
     public Direction getDirection(){
         return direction;
     }
-    public String processMovement(String instruction){
-        if (instruction == null || instruction.isEmpty() || instruction.equals(" ")){
-            return "Instructions cannot be Empty or null";
-        }
+
+    public Status processMovement(String instruction){
+        Status status = Status.NO_ERROR;
         if (!instruction.matches("^[LMRlmr]+$")) {
-            return "Invalid Instructions. Please provide only L, R or M as input";
+            return Status.ERROR_BAD_MOVEMENT_STRING;
         }
         String[] instructionArray = instruction.split("");
         for (String input : instructionArray) {
@@ -47,14 +47,14 @@ public class Rover {
                 switch (input.toUpperCase()) {
                     case "L" -> goLeft();
                     case "R" -> goRight();
-                    case "M" -> move();
+                    case "M" -> status = move();
                     default -> System.out.println("Something else? " + input);
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
-        return "Rover moved to new direction";
+        return status;
     }
 
     private void goLeft(){
@@ -68,29 +68,41 @@ public class Rover {
         }
     }
 
-        private void goRight() {
-        Direction d = this.direction;
-            switch (d) {
-                case EAST -> this.direction = Direction.SOUTH;
-                case SOUTH -> this.direction = Direction.WEST;
-                case WEST -> this.direction = Direction.NORTH;
-                case NORTH -> this.direction = Direction.EAST;
-                default -> System.out.println("Direction = " + d);
-            }
-
-        }
-    private void move() throws Exception{
-        String result = plateau.move(posX, posY, direction);
-        if (result.equals("Cannot move further. Vehicle over edge")){
-            throw new Exception("Rover has reached the Edge");
-        }
-        Direction d = this.direction;
+    private void goRight() {
+    Direction d = this.direction;
         switch (d) {
+            case EAST -> this.direction = Direction.SOUTH;
+            case SOUTH -> this.direction = Direction.WEST;
+            case WEST -> this.direction = Direction.NORTH;
+            case NORTH -> this.direction = Direction.EAST;
+            default -> System.out.println("Direction = " + d);
+        }
+
+    }
+
+    public Status move() throws Exception{
+        Status status = plateau.checkEdgeCoordinates(posX, posY, direction);
+        if (status == Status.NO_ERROR) {
+            if (plateau.forwardPosition(posX, posY, direction)) {
+                status = Status.ERROR_TAKEN_SPOT;
+            }
+        }
+        switch (status) {
+            case ERROR_OVER_EDGE -> throw new Exception(EDGE_MESSAGE );
+            case ERROR_TAKEN_SPOT -> throw new Exception(TAKEN_SPOT);
+            case NO_ERROR -> moveForward();
+        }
+        return status;
+    }
+
+    private void moveForward() {
+        switch (direction) {
             case NORTH -> this.posY += 1;
             case EAST -> this.posX += 1;
             case SOUTH -> this.posY -= 1;
             case WEST -> this.posX -= 1;
         }
+
     }
 
 }

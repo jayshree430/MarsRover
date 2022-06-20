@@ -10,20 +10,41 @@ public class Main {
         System.out.println("Welcome to Mars!");
         System.out.print("Please enter the size of Plateau. Enter two numbers separated by a space: ");
         int[] plateauSize = getCommandNumbers();
-        Plateau plateau = new Plateau(plateauSize[0], plateauSize[1]);
+        PlateauRoverFunctions plateau = new Plateau(plateauSize[0], plateauSize[1]);
+        Rover rover = null;
+        Direction direction;
+        boolean addAnotherVehicleIsTrue;
+        String message = "";
         do {
             System.out.print("Enter the vehicle coordinates (x y) separated by a space: ");
-            int[] coords = getCommandNumbers();
+            Status status;
+            int[] coords;
 
-            Rover rover = new Rover(coords[0], coords[1], getDirection(), plateau);
+            do{
+                coords = getCommandNumbers();
+                direction = getDirection();
+                status = plateau.checkEdgeCoordinates(coords[0],coords[1],direction);
+                if (status == Status.ERROR_OVER_EDGE) {
+                    System.out.println("Rover coordinates are over the edge of plateau. Please enter valid coordinates");
+                }else {
+                    rover = plateau.getRoverByCoordinates(coords[0],coords[1]);
+                    if (rover == null){
+                        message = "Enter the vehicle instructions for New rover - L/R/M : ";
+                        rover = new Rover(coords[0],coords[1],direction, plateau);
+                    }else{
+                        message = "Rover already exists at that position. Enter the vehicle instructions - L/R/M : ";
+                    }
+                }
+            }while(status == Status.ERROR_OVER_EDGE);
 
-            System.out.print("Enter the vehicle instructions - L/R/M : ");
+            System.out.print(message);
 
-            if (rover.processMovement(getCommand()).equals("Invalid Instructions. Please provide only L, R or M as input")) {
-                System.out.println("Movement string can only contain the letters LRM.");
+            if (rover.processMovement(getCommand()) == Status.ERROR_BAD_MOVEMENT_STRING ) {
+                System.out.println("Invalid Instructions. Please provide only L, R or M as input");
             }
             System.out.println(rover.getPosX() + " " + rover.getPosY() + " " + rover.getDirection());
-        } while (addAnotherVehicle());
+            addAnotherVehicleIsTrue = addAnotherVehicle();
+        } while (addAnotherVehicleIsTrue);
         System.out.println("Thank you for visiting Mars");
     }
     public static int[] getCommandNumbers(){
@@ -44,7 +65,13 @@ public class Main {
     private static String getCommand() {
         String movement = "";
         try {
-            movement = reader.readLine();
+            do {
+                movement = reader.readLine();
+                if (movement.isBlank()){
+                    System.out.println("Please enter valid input");
+                }
+            }while (movement.isBlank());
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -73,7 +100,9 @@ public class Main {
         do {
             System.out.print("Would you like to add another vehicle? y/n: ");
             response = getCommand();
-            if (response.matches("^[yn]")) haveResponse = true;
+            if (response.matches("^[yn]")){
+                haveResponse = true;
+            }
             else System.out.println("Must be either y or n");
         } while (!haveResponse);
         return response.equals("y");
