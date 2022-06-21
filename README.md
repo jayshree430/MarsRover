@@ -1,7 +1,7 @@
 **TTD Mars Rover kata**
 =====================
 
-###What is a kata?
+### What is a kata?
 A Kata in martial arts means “a system of individual training exercises”. Just like in martial arts, coding also requires consistent practise to hone in the skill.
 
 ###What is the goal?
